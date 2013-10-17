@@ -55,9 +55,9 @@ Validator.prototype.validate = function (value, callback) {
       // dont handle errors so that things like fs.exists work
       var finish = function (valid) { done(null, valid); };
       // handle sync or async validators
-      rule.fn.length == 1
-        ? finish(rule.fn(value))
-        : rule.fn(value, finish);
+      rule.fn.length > 1
+        ? rule.fn(value, finish)
+        : finish(rule.fn(value));
     });
   });
 
