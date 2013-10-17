@@ -1,4 +1,3 @@
-
 # validator
 
   Validate a value against a set of rules.
@@ -33,7 +32,7 @@ Validator()
 
 ### #validate(value, callback)
 
-  Validate the given `value`. If the validation fails, the `context` from the associate rule will be passed to the `callback`.
+  Validate the given `value`. If the validation fails, the `context` from the associated rule will be passed to the `callback`.
   
 ## License
 
