@@ -1,0 +1,17 @@
+{
+  "name": "validator",
+  "repo": "segmentio/validator",
+  "description": "Validate a value against a set of rules.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": ["validate", "validator"],
+  "dependencies": {
+    "component/each": "*",
+    "component/once": "*",
+    "visionmedia/batch": "*"
+  },
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": ["index.js"]
+}
