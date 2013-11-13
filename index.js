@@ -64,7 +64,7 @@ Validator.prototype.validate = function (value, callback) {
     middleware.use(function (value, done) {
       // dont handle errors so that things like fs.exists work
       var finish = function (valid) {
-        if (valid) done();
+        if (valid) return done();
         var err = new Error('Validation Error');
         err.rule = rule;
         done(err);
@@ -73,7 +73,7 @@ Validator.prototype.validate = function (value, callback) {
       // handle sync or async validators
       rule.fn.length > 1
         ? rule.fn(value, finish)
-        : tick(function () { finish(rule.fn(value)) });
+        : tick(function () { finish(rule.fn(value)); });
     });
   });
 

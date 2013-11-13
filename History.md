@@ -1,10 +1,14 @@
+0.0.5 - November 12, 2013
+-------------------------
+* fix to not call done twice
+
 0.0.4 - November 12, 2013
 -------------------------
-* moving to run validators in order
+* change to run validators in order
 
 0.0.3 - November 12, 2013
 -------------------------
-* adding node support
+* add node support
 
 0.0.2 - October 17, 2013
 ------------------------
