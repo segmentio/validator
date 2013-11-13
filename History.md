@@ -1,3 +1,7 @@
+0.0.4 - November 12, 2013
+-------------------------
+* moving to run validators in order
+
 0.0.3 - November 12, 2013
 -------------------------
 * adding node support

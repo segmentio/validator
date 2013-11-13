@@ -2,7 +2,7 @@
   "name": "validator",
   "repo": "segmentio/validator",
   "description": "Validate a value against a set of rules.",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "license": "MIT",
   "keywords": [
     "validate",
@@ -10,9 +10,8 @@
   ],
   "dependencies": {
     "component/each": "0.1.0",
-    "component/once": "0.0.1",
-    "visionmedia/batch": "0.5.0",
-    "timoxley/next-tick": "0.0.2"
+    "timoxley/next-tick": "0.0.2",
+    "segmentio/ware": "0.2.0"
   },
   "development": {
     "component/assert": "*"
