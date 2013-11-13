@@ -6,9 +6,9 @@
   "license": "MIT",
   "keywords": ["validate", "validator"],
   "dependencies": {
-    "component/each": "*",
-    "component/once": "*",
-    "visionmedia/batch": "*"
+    "component/each": "0.1.0",
+    "component/once": "0.0.1",
+    "visionmedia/batch": "0.5.0"
   },
   "development": {
     "component/assert": "*"

@@ -1,7 +1,20 @@
 
 var Batch = require('batch');
-var each = require('each');
-var once = require('once');
+var each;
+var once;
+
+
+/**
+ * Try to require from component and node
+ */
+
+try {
+  each = require('each');
+  once = require('once');
+} catch (err) {
+  each = require('each-component');
+  once = require('once-component');
+}
 
 
 /**

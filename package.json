@@ -1,0 +1,30 @@
+{
+  "name": "validator",
+  "version": "0.0.2",
+  "description": "Validate a value against a set of rules",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "open test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/segmentio/validator.git"
+  },
+  "keywords": [
+    "validate",
+    "validator"
+  ],
+  "author": "Segment.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/segmentio/validator/issues"
+  },
+  "dependencies": {
+    "batch": "0.5.0",
+    "each-component": "git+ssh://git@github.com:component/each#0.1.0",
+    "once-component": "0.0.1"
+  }
+}
