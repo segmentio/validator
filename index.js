@@ -1,7 +1,6 @@
 
-var Batch = require('batch');
 var tick = require('next-tick');
-var each;
+var ware = require('ware');
 var once;
 
 
@@ -11,10 +10,8 @@ var once;
 
 try {
   each = require('each');
-  once = require('once');
 } catch (err) {
   each = require('each-component');
-  once = require('once-component');
 }
 
 
@@ -60,31 +57,29 @@ Validator.prototype.rule = function (fn, context) {
  */
 
 Validator.prototype.validate = function (value, callback) {
-  callback = once(callback);
-  var batch = new Batch();
   var rules = this.rules;
+  var middleware = ware();
 
   each(rules, function (rule) {
-    batch.push(function (done) {
+    middleware.use(function (value, done) {
       // dont handle errors so that things like fs.exists work
       var finish = function (valid) {
-        tick(function () { done(null, valid); });
+        if (valid) done();
+        var err = new Error('Validation Error');
+        err.rule = rule;
+        done(err);
       };
+
       // handle sync or async validators
       rule.fn.length > 1
         ? rule.fn(value, finish)
-        : finish(rule.fn(value));
+        : tick(function () { finish(rule.fn(value)) });
     });
   });
 
-  batch.on('progress', function (data) {
-    if (data.value && !data.err) return;
-    var context = rules[data.index].context;
-    callback(false, context);
-  });
-
-  batch.end(function (err, res) {
-    callback(true);
+  middleware.run(value, function (err) {
+    if (err) return callback(false, err.rule.context);
+    return callback(true);
   });
 
   return this;

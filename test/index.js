@@ -79,5 +79,16 @@ describe('validator', function () {
           done();
         });
     });
+
+    it('should fail on the first invalid rule', function (done) {
+      Validator()
+        .rule(function (obj) { return obj; }, 'obj')
+        .rule(function (obj) { return obj.x; }, 'obj.x')
+        .validate(null, function (valid, context) {
+          assert(!valid);
+          assert('obj' == context);
+          done();
+        });
+    });
   });
 });
