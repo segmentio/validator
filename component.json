@@ -2,7 +2,7 @@
   "name": "validator",
   "repo": "segmentio/validator",
   "description": "Validate a value against a set of rules.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": ["validate", "validator"],
   "dependencies": {
