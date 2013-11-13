@@ -25,6 +25,7 @@
   "dependencies": {
     "batch": "0.5.0",
     "each-component": "git+ssh://git@github.com:component/each#0.1.0",
-    "once-component": "0.0.1"
+    "once-component": "0.0.1",
+    "next-tick": "git://github.com/timoxley/next-tick#0.0.2"
   }
 }

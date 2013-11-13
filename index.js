@@ -1,5 +1,6 @@
 
 var Batch = require('batch');
+var tick = require('next-tick');
 var each;
 var once;
 
@@ -66,7 +67,9 @@ Validator.prototype.validate = function (value, callback) {
   each(rules, function (rule) {
     batch.push(function (done) {
       // dont handle errors so that things like fs.exists work
-      var finish = function (valid) { done(null, valid); };
+      var finish = function (valid) {
+        tick(function () { done(null, valid); });
+      };
       // handle sync or async validators
       rule.fn.length > 1
         ? rule.fn(value, finish)
