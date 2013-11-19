@@ -1,6 +1,7 @@
 
 var tick = require('next-tick');
 var ware = require('ware');
+var each;
 var once;
 
 
@@ -63,24 +64,35 @@ Validator.prototype.validate = function (value, callback) {
   each(rules, function (rule) {
     middleware.use(function (value, done) {
       // dont handle errors so that things like fs.exists work
-      var finish = function (valid) {
-        if (valid) return done();
-        var err = new Error('Validation Error');
-        err.rule = rule;
-        done(err);
+      var finish = function (err, valid) {
+        if (err) return done(err);
+        if (!valid) return done(new ValidationError(rule));
+        done();
       };
 
       // handle sync or async validators
       rule.fn.length > 1
         ? rule.fn(value, finish)
-        : tick(function () { finish(rule.fn(value)); });
+        : tick(function () { finish(null, rule.fn(value)); });
     });
   });
 
   middleware.run(value, function (err) {
-    if (err) return callback(false, err.rule.context);
-    return callback(true);
+    if (!err) return callback(null, true);
+    if (err && err instanceof ValidationError) {
+      return callback(null, false, err.rule.context);
+    }
+    return callback(err);
   });
 
   return this;
 };
+
+
+/**
+ * A simple error constructor to store the rule.
+ */
+
+function ValidationError (rule) {
+  this.rule = rule;
+}
