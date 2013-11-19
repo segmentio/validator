@@ -2,7 +2,6 @@
 var tick = require('next-tick');
 var ware = require('ware');
 var each;
-var once;
 
 
 /**
