@@ -11,7 +11,7 @@ describe('validator', function () {
 
   function isNumber (number, done) {
     setTimeout(function () {
-      done('number' == typeof number);
+      done(null, 'number' == typeof number);
     }, 1);
   }
 
@@ -36,7 +36,8 @@ describe('validator', function () {
     it('should pass synchronous validators', function (done) {
       Validator()
         .rule(isString)
-        .validate('string', function (valid) {
+        .validate('string', function (err, valid) {
+          assert(!err);
           assert(valid);
           done();
         });
@@ -45,7 +46,8 @@ describe('validator', function () {
     it('should fail synchronous validators', function (done) {
       Validator()
         .rule(isString)
-        .validate(42, function (valid) {
+        .validate(42, function (err, valid) {
+          assert(!err);
           assert(!valid);
           done();
         });
@@ -54,7 +56,9 @@ describe('validator', function () {
     it('should pass async validators', function (done) {
       Validator()
         .rule(isNumber)
-        .validate(42, function (valid) {
+        .validate(42, function (err, valid) {
+          debugger;
+          assert(!err);
           assert(valid);
           done();
         });
@@ -63,7 +67,8 @@ describe('validator', function () {
     it('should fail async validators', function (done) {
       Validator()
         .rule(isNumber)
-        .validate('string', function (valid) {
+        .validate('string', function (err, valid) {
+          assert(!err);
           assert(!valid);
           done();
         });
@@ -73,7 +78,8 @@ describe('validator', function () {
       Validator()
         .rule(isString, 'string')
         .rule(isNumber, 'number')
-        .validate(42, function (valid, context) {
+        .validate(42, function (err, valid, context) {
+          assert(!err);
           assert(!valid);
           assert('string' == context);
           done();
@@ -84,9 +90,20 @@ describe('validator', function () {
       Validator()
         .rule(function (obj) { return obj; }, 'obj')
         .rule(function (obj) { return obj.x; }, 'obj.x')
-        .validate(null, function (valid, context) {
+        .validate(null, function (err, valid, context) {
+          assert(!err);
           assert(!valid);
           assert('obj' == context);
+          done();
+        });
+    });
+
+    it('should pass back errors unrelated to validation', function (done) {
+      Validator()
+        .rule(function (obj, cb) { return cb(new Error('error')); })
+        .rule(function (obj) { return obj.x; })
+        .validate(null, function (err, valid, context) {
+          assert(err);
           done();
         });
     });
