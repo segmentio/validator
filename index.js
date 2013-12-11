@@ -3,7 +3,6 @@ var tick = require('next-tick');
 var ware = require('ware');
 var each;
 
-
 /**
  * Try to require from component and node
  */
@@ -14,27 +13,21 @@ try {
   each = require('each-component');
 }
 
-
 /**
  * Expose `Validator`.
  */
 
 module.exports = Validator;
 
-
 /**
  * Initialize a new `Validator`.
- *
- * @param {Object} options (optional)
  */
 
-function Validator (options) {
-  if (!(this instanceof Validator)) return new Validator(options);
-  options = options || {};
+function Validator () {
+  if (!(this instanceof Validator)) return new Validator();
   this.rules = [];
-  this.optional = !! options.optional;
+  this._optional = false;
 }
-
 
 /**
  * Add a new rule `fn`, with optional `context`.
@@ -52,7 +45,6 @@ Validator.prototype.rule = function (fn, context) {
   return this;
 };
 
-
 /**
  * Kick off the validation against all our rules.
  *
@@ -62,7 +54,7 @@ Validator.prototype.rule = function (fn, context) {
 
 Validator.prototype.validate = function (value, callback) {
   var rules = this.rules;
-  var optional = this.optional;
+  var optional = this._optional;
   var middleware = ware();
 
   each(rules, function (rule) {
@@ -96,6 +88,16 @@ Validator.prototype.validate = function (value, callback) {
   return this;
 };
 
+/**
+ * Make the validator pass on empty values.
+ *
+ * @return {Validator}
+ */
+
+Validator.prototype.optional = function () {
+  this._optional = true;
+  return this;
+};
 
 /**
  * A simple error constructor to store the rule.

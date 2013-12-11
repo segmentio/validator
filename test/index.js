@@ -57,7 +57,6 @@ describe('validator', function () {
       Validator()
         .rule(isNumber)
         .validate(42, function (err, valid) {
-          debugger;
           assert(!err);
           assert(valid);
           done();
@@ -107,9 +106,12 @@ describe('validator', function () {
           done();
         });
     });
+  });
 
-    it('should handle an optional option', function (done) {
-      Validator({ optional: true })
+  describe('#optional', function () {
+    it('should pass on empty values', function (done) {
+      Validator()
+        .optional()
         .rule(isString, 'string')
         .validate(null, function (err, valid, context) {
           assert(!err);
