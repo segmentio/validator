@@ -107,5 +107,15 @@ describe('validator', function () {
           done();
         });
     });
+
+    it('should handle an optional option', function (done) {
+      Validator({ optional: true })
+        .rule(isString, 'string')
+        .validate(null, function (err, valid, context) {
+          assert(!err);
+          assert(valid);
+          done();
+        });
+    });
   });
 });

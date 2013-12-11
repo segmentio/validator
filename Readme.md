@@ -1,3 +1,4 @@
+
 # validator
 
   Validate a value against a set of rules.
@@ -5,6 +6,7 @@
 ## Installation
 
     $ component install segmentio/validator
+    $ npm install segmentio/validator
 
 ## Example
 
@@ -14,7 +16,7 @@ var Validator = require('validator');
 Validator()
   .rule(required, 'required')
   .rule(isEmail, 'email')
-  .validate('test', function (valid, context) {
+  .validate('test', function (err, valid, context) {
     valid; // false
     context; // "email"
   });
@@ -22,9 +24,13 @@ Validator()
 
 ## API
 
-### Validator()
+### Validator(options)
   
-  Create a new `Validator`.
+  Create a new `Validator` with `options`:
+
+    {
+      optional: false  // whether return true on empty values
+    }
 
 ### #rule(fn, [context])
   

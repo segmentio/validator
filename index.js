@@ -24,11 +24,15 @@ module.exports = Validator;
 
 /**
  * Initialize a new `Validator`.
+ *
+ * @param {Object} options (optional)
  */
 
-function Validator () {
-  if (!(this instanceof Validator)) return new Validator();
+function Validator (options) {
+  if (!(this instanceof Validator)) return new Validator(options);
+  options = options || {};
   this.rules = [];
+  this.optional = !! options.optional;
 }
 
 
@@ -52,16 +56,21 @@ Validator.prototype.rule = function (fn, context) {
 /**
  * Kick off the validation against all our rules.
  *
- * @param {Function} callback(valid, [context])
+ * @param {Function} callback(err, valid, [context])
  * @return {Validator}
  */
 
 Validator.prototype.validate = function (value, callback) {
   var rules = this.rules;
+  var optional = this.optional;
   var middleware = ware();
 
   each(rules, function (rule) {
     middleware.use(function (value, done) {
+
+      // handle optional setting
+      if (!value && optional) return tick(done);
+
       // dont handle errors so that things like fs.exists work
       var finish = function (err, valid) {
         if (err) return done(err);

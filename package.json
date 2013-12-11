@@ -1,6 +1,6 @@
 {
   "name": "validator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Validate a value against a set of rules",
   "main": "index.js",
   "directories": {

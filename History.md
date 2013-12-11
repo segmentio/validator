@@ -1,6 +1,10 @@
+0.0.7 - December 10, 2013
+-------------------------
+* add `optional` option
+
 0.0.6 - November 19, 2013
 -------------------------
-*  adding `err` to `validate` signature
+* add `err` to `validate` signature
 
 0.0.5 - November 12, 2013
 -------------------------
