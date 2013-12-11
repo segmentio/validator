@@ -91,11 +91,12 @@ Validator.prototype.validate = function (value, callback) {
 /**
  * Make the validator pass on empty values.
  *
+ * @param {Boolean} optional
  * @return {Validator}
  */
 
-Validator.prototype.optional = function () {
-  this._optional = true;
+Validator.prototype.optional = function (optional) {
+  this._optional = false === optional ? false : true;
   return this;
 };
 

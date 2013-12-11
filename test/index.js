@@ -119,5 +119,18 @@ describe('validator', function () {
           done();
         });
     });
+
+    it('should be reversible', function (done) {
+      Validator()
+        .optional()
+        .optional(false)
+        .rule(isString, 'string')
+        .validate(null, function (err, valid, context) {
+          assert(!err);
+          assert(!valid);
+          assert('string' == context);
+          done();
+        });
+    });
   });
 });

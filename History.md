@@ -1,3 +1,7 @@
+0.0.9 - December 10, 2013
+-------------------------
+* change `optional` to be reversible
+
 0.0.8 - December 10, 2013
 -------------------------
 * change `optional` to be fluent
