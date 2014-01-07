@@ -1,3 +1,7 @@
+0.0.10 - January 7, 2013
+------------------------
+* fix component-each package.json dependency
+
 0.0.9 - December 10, 2013
 -------------------------
 * change `optional` to be reversible
