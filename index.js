@@ -1,5 +1,4 @@
 
-var tick = require('next-tick');
 var ware = require('ware');
 var each;
 
@@ -61,7 +60,7 @@ Validator.prototype.validate = function (value, callback) {
     middleware.use(function (value, done) {
 
       // handle optional setting
-      if (!value && optional) return tick(done);
+      if (!value && optional) return done();
 
       // dont handle errors so that things like fs.exists work
       var finish = function (err, valid) {
@@ -70,10 +69,13 @@ Validator.prototype.validate = function (value, callback) {
         done();
       };
 
-      // handle sync or async validators
-      rule.fn.length > 1
-        ? rule.fn(value, finish)
-        : tick(function () { finish(null, rule.fn(value)); });
+      // async
+      if (rule.fn.length > 1) {
+        return rule.fn(value, finish);
+      }
+
+      // sync
+      finish(null, rule.fn(value));
     });
   });
 
