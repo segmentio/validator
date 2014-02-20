@@ -1,3 +1,8 @@
+
+0.0.11 / 2014-02-20
+==================
+
+ * remove the use of next-tick which creates compounded latency issues
 0.0.10 - January 7, 2013
 ------------------------
 * fix component-each package.json dependency
