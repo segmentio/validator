@@ -25,7 +25,7 @@ Validator()
 ## API
 
 ### Validator(options)
-  
+
   Create a new `Validator` with `options`:
 
     {
@@ -33,13 +33,18 @@ Validator()
     }
 
 ### #rule(fn, [context])
-  
-  Add a new rule `fn` to the validator, with an optional `context`. 
+
+  Add a new rule `fn` to the validator, with an optional `context`.
 
 ### #validate(value, callback)
 
   Validate the given `value`. If the validation fails, the `context` from the associated rule will be passed to the `callback`.
-  
+
+## Probes
+
+  - `validator:<function-name>:start`
+  - `validator:<function-name>:end`
+
 ## License
 
   MIT

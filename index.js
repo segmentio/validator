@@ -13,6 +13,26 @@ try {
 }
 
 /**
+ * Trace helper.
+ *
+ * TODO: move to npm
+ */
+
+function tracer(trace) {
+  var ids = 0;
+  return function(name, obj){
+    var id = ++ids;
+    obj = obj || {};
+    obj.id = id;
+
+    trace(name + ':start', obj);
+    return function(obj){
+      trace(name + ':end');
+    }
+  }
+}
+
+/**
  * Expose `Validator`.
  */
 
@@ -22,8 +42,10 @@ module.exports = Validator;
  * Initialize a new `Validator`.
  */
 
-function Validator () {
-  if (!(this instanceof Validator)) return new Validator();
+function Validator (opts) {
+  if (!(this instanceof Validator)) return new Validator(opts);
+  opts = opts || {};
+  this.trace = tracer(opts.trace || function(){});
   this.rules = [];
   this._optional = false;
 }
@@ -55,6 +77,7 @@ Validator.prototype.validate = function (value, callback) {
   var rules = this.rules;
   var optional = this._optional;
   var middleware = ware();
+  var trace = this.trace;
 
   each(rules, function (rule) {
     middleware.use(function (value, done) {
@@ -71,11 +94,18 @@ Validator.prototype.validate = function (value, callback) {
 
       // async
       if (rule.fn.length > 1) {
-        return rule.fn(value, finish);
+        var end = trace('validator:' + rule.fn.name);
+        return rule.fn(value, function(){
+          end();
+          finish.apply(null, arguments);
+        });
       }
 
       // sync
-      finish(null, rule.fn(value));
+      var end = trace('validator:' + rule.fn.name);
+      var val = rule.fn(value);
+      end();
+      finish(null, val);
     });
   });
 
