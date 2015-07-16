@@ -1,5 +1,5 @@
 {
-  "name": "validator",
+  "name": "@segment/validator",
   "version": "0.0.13",
   "description": "Validate a value against a set of rules",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "url": "https://github.com/segmentio/validator/issues"
   },
   "dependencies": {
-    "each-component": "git://github.com/segmentio/each#0.1.1",
+    "component-each": "^0.2.6",
     "ware": "~0.2.0"
   }
 }
