@@ -1,4 +1,10 @@
 
+0.1.0 / 2015-07-16
+==================
+
+  * updating version number
+  * preparing to publish to npm as scoped package
+
 0.0.13 / 2014-03-28
 ==================
 
