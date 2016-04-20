@@ -1,14 +1,15 @@
 
-build: components index.js
-	@component build --dev
+test: node_modules
+	node_modules/.bin/mochify --phantomjs node_modules/.bin/phantomjs --reporter spec test/index.js
 
-components: component.json
-	@component install --dev
+bundle.js: index.js node_modules
+	node_modules/.bin/browserify $< > $@
+
+node_modules: package.json
+	npm install
+	touch $@
 
 clean:
-	@rm -fr build components
+	rm -f bundle.js
 
-test: build
-	@open test/index.html
-
-.PHONY: clean test
+.PHONY: test clean distclean

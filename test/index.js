@@ -1,9 +1,9 @@
 
-describe('validator', function () {
+var assert = require('assert');
+var noop = function(){};
+var Validator = require('..');
 
-  var assert = require('assert');
-  var noop = function(){};
-  var Validator = require('validator');
+describe('validator', function () {
 
   function isString (string) {
     return 'string' == typeof string;

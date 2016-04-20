@@ -1,16 +1,6 @@
 
 var ware = require('ware');
-var each;
-
-/**
- * Try to require from component and node
- */
-
-try {
-  each = require('each');
-} catch (err) {
-  each = require('each-component');
-}
+var each = require('component-each');
 
 /**
  * Trace helper.
