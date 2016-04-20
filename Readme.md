@@ -5,8 +5,7 @@
 
 ## Installation
 
-    $ component install segmentio/validator
-    $ npm install segmentio/validator
+    $ npm install @segment/validator
 
 ## Example
 
