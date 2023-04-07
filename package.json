@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "component-each": "^0.2.6",
-    "ware": "~0.2.0"
+    "ware": "~0.3.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
